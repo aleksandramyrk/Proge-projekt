@@ -21,16 +21,18 @@ mudel.fit(X_train, Y_train)
 # Ennustuste hindamine ja hindamise kasutajale näitamine
 #kasutajaliides
 sg.theme('DarkBlack')
-paigutus = [[sg.Text('Age:'), sg.InputText()],
-            [sg.Text('Sex(1-male, 0-female):'), sg.InputText()],
-            [sg.Text('Chest pain type:'), sg.InputText()],
-            [sg.Text('1: typical angina, 2: atypical angina, 3: non-anginal pain, 4: asymptomatic')],
-            [sg.Text('Resting blood pressure:'), sg.InputText()],
-            [sg.Text('Max heart rate:'), sg.InputText()],
-            [sg.Text('Exercise induced angina:'), sg.InputText()],
-            [sg.Text('Thalassemia:'), sg.InputText()],
-            [sg.Text('''Value 0: NULL, Value 1: fixed defect (no blood flow in some part of the heart), Value 2: normal blood flow, Value 3: reversible defect (a blood flow is observed but it is not normal)''')],
-            [sg.Button('Close'), sg.Button('Confirm')]]
+paigutus = [[sg.Text('Age:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('Sex:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('', size=(22, 1)), sg.Text('1-male; 0-female', font=('Ariel', 11))],
+            [sg.Text('Chest pain type:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('', size=(22, 1)), sg.Text('1-typical angina; 2-atypical angina; 3-non-anginal pain; 4-asymptomatic', font=('Ariel', 11))],
+            [sg.Text('Resting blood pressure:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('Max heart rate:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('Exercise induced angina:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('Thalassemia:', font=('Ariel', 11), size=(20, 1)), sg.InputText()],
+            [sg.Text('', size=(22, 1)), sg.Text('0-NULL; 1-fixed defect (no blood flow in some part of the heart); 2-normal blood flow;', font=('Ariel', 11))],
+            [sg.Text('', size=(22, 1)), sg.Text('3-reversible defect (a blood flow is observed but it is not normal', font=('Ariel', 11))],
+            [sg.Button('Close', font=('Ariel', 11)), sg.Button('Confirm', font=('Ariel', 11))]]
 
 aken = sg.Window('Heart Attack Possibilty Calculator', layout=paigutus)
 
@@ -43,7 +45,9 @@ while True:
         ennustus = mudel.predict([list(sisend.values())])
         print(int(ennustus))
         if int(ennustus) == 0:
-            paigutus2 = [[sg.Text('no/low chance of heart attack')]]
+            paigutus2 = [[sg.Text('')],
+                        [sg.Text('No/low chance of heart attack.', font=('Ariel', 16), justification='center', size=(100, 1))]]
         elif int(ennustus) == 1:
-            paigutus2 = [[sg.Text('high chance of heart attack')]]
-        aken = sg.Window('Heart Attack Possibilty Calculator', layout=paigutus2)
+            paigutus2 = [[sg.Text('')],
+                        [sg.Text('High chance of heart attack.', font=('Ariel', 16), justification='center', size=(100, 1))]]
+        aken = sg.Window('Heart Attack Possibilty Calculator', layout=paigutus2, size=(400, 100))
